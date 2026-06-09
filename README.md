@@ -24,6 +24,14 @@ bash scripts/init.sh
 **Primera ejecución:** 5–10 minutos (descarga imágenes Docker + instalación de Magento).
 **Ejecuciones siguientes:** ~1 minuto (los volúmenes Docker persisten los datos).
 
+### Plataforma
+
+```sh
+# macOS / Linux / Windows (Git Bash o WSL)
+git clone <repo-url> && cd ecommerce
+./scripts/init.sh
+```
+
 Al finalizar:
 | Recurso | URL |
 |---------|-----|
