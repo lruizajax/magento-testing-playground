@@ -181,29 +181,216 @@ Los SKUs de los productos pueden usarse como datos parametrizados en los escenar
 ### Ejemplos de escenarios
 
 ```gherkin
-Scenario: Buscar producto por nombre
-  Given estoy en la página principal
-  When busco "AirPods Pro 2"
-  Then veo el producto "Apple AirPods Pro 2" en los resultados
+@api
+Feature: REST API — Autenticación y productos
 
-Scenario: Agregar producto al carrito
-  Given estoy en la página del producto "airpods-pro-2"
-  When agrego el producto al carrito
-  Then el carrito muestra el producto "Apple AirPods Pro 2"
-  And el total es "$249.99"
+  Background:
+    Given la URL base es "http://localhost:8080/rest/V1"
 
-Scenario: Login como admin
-  Given estoy en la página de login del admin
-  When ingreso con "admin" y "Admin12345"
-  Then veo el dashboard de administración
+  Scenario: Obtener token de admin
+    When envío POST a "/integration/admin/token"
+      | username | admin      |
+      | password | Admin12345 |
+    Then la respuesta tiene status 200
+    And el body contiene un token JWT
 
-Scenario: Producto sin stock
-  Given estoy en la página del producto "{sku_sin_stock}"
-  Then el botón "Agregar al carrito" no está disponible
+  Scenario: Obtener producto por SKU vía API
+    Given tengo un token de admin válido
+    When envío GET a "/products/airpods-pro-2"
+    Then la respuesta tiene status 200
+    And el nombre del producto es "Apple AirPods Pro 2"
+    And el precio es "249.99"
 
-Scenario: Buscar sin resultados
-  When busco "zzzzz"
-  Then veo el mensaje "no se encontraron productos"
+  Scenario: Buscar productos por nombre vía API
+    Given tengo un token de admin válido
+    When envío GET a "/products?searchCriteria[filterGroups][0][filters][0][field]=name&searchCriteria[filterGroups][0][filters][0][value]=AirPods&searchCriteria[filterGroups][0][filters][0][conditionType]=like"
+    Then la respuesta tiene status 200
+    And total_count es mayor a 0
+    And todos los resultados contienen "AirPods" en el nombre
+
+  Scenario: Crear carrito de customer vía API
+    Given tengo un token de customer válido
+    When envío POST a "/carts/mine"
+    Then la respuesta tiene status 200
+    And el body contiene un cartId numérico
+
+
+@web
+Feature: Catálogo y búsqueda
+
+  Scenario: Buscar producto por nombre
+    Given estoy en la página principal
+    When busco "AirPods Pro 2"
+    Then veo el producto "Apple AirPods Pro 2" en los resultados
+
+  Scenario: Navegar categoría y ver productos
+    Given estoy en la página principal
+    When navego a la categoría "Electrónica"
+    Then veo 3 productos en la lista
+
+  Scenario: Buscar sin resultados
+    When busco "zzzzz"
+    Then veo el mensaje "no se encontraron productos"
+
+  Scenario: Ver detalle de producto
+    Given estoy en la página del producto "galaxy-s25-ultra"
+    Then veo el nombre "Samsung Galaxy S25 Ultra"
+    And veo el precio "$1,399.99"
+    And la imagen del producto se muestra correctamente
+
+
+@web
+Feature: Carrito de compras
+
+  Scenario: Agregar producto al carrito
+    Given estoy en la página del producto "airpods-pro-2"
+    When agrego el producto al carrito
+    Then el carrito muestra el producto "Apple AirPods Pro 2"
+    And el subtotal es "$249.99"
+
+  Scenario: Agregar múltiples productos
+    Given estoy en la página del producto "levis-501-original"
+    When agrego 2 unidades al carrito
+    And agrego el producto "rayban-wayfarer" al carrito
+    Then el carrito tiene 3 artículos
+    And el subtotal es "$339.97"
+
+  Scenario: Modificar cantidad en carrito
+    Given tengo el producto "airpods-pro-2" en el carrito
+    When actualizo la cantidad a 3
+    Then el subtotal del producto es "$749.97"
+
+  Scenario: Eliminar producto del carrito
+    Given tengo el producto "wh-1000xm6" en el carrito
+    When elimino el producto del carrito
+    Then el carrito está vacío
+
+
+@web
+Feature: Checkout
+
+  Scenario: Completar compra como guest
+    Given tengo el producto "essenza-mini-coffee" en el carrito
+    When procedo al checkout
+    And ingreso mis datos de envío:
+      | nombre     | Juan Pérez          |
+      | email      | juan@example.com    |
+      | dirección  | Av. Siempre Viva 123 |
+      | ciudad     | Lima                |
+      | país       | PE                  |
+      | código postal | Lima 15074       |
+    And selecciono el método de envío "Flat Rate"
+    And selecciono el método de pago "Check / Money Order"
+    And confirmo la orden
+    Then veo el número de orden generado
+    And el mensaje "Thank you for your purchase"
+
+  Scenario: Completar compra con múltiples productos
+    Given tengo los productos en el carrito:
+      | sku              | cantidad |
+      | airpods-pro-2    | 1        |
+      | ultraboost-running | 1      |
+    When procedo al checkout
+    And ingreso dirección de envío válida
+    And selecciono envío "Flat Rate"
+    And selecciono pago "Check / Money Order"
+    And confirmo la orden
+    Then el total de la orden incluye productos y envío
+
+  Scenario: Checkout con dirección de facturación diferente
+    Given tengo el producto "nike-club-hoodie" en el carrito
+    When procedo al checkout
+    And ingreso dirección de envío
+    And marco dirección de facturación diferente
+    And ingreso dirección de facturación válida
+    And confirmo la orden
+    Then la orden se genera correctamente
+
+
+@web
+Feature: Admin
+
+  Scenario: Login como admin
+    Given estoy en la página de login del admin
+    When ingreso con "admin" y "Admin12345"
+    Then veo el dashboard de administración
+
+  Scenario: Buscar orden en admin
+    Given estoy logueado como admin
+    When navego a "Ventas > Órdenes"
+    And busco por el email "juan@example.com"
+    Then veo la orden en los resultados
+
+
+@web
+Feature: Productos agotados
+
+  Scenario: Producto sin stock
+    Given estoy en la página del producto "{sku_sin_stock}"
+    Then el botón "Agregar al carrito" no está disponible
+    And veo el mensaje "Agotado" o "Sin stock"
+```
+
+### Escenarios BDD para REST API
+
+```gherkin
+@api
+Feature: Autenticación
+
+  Background:
+    Given la URL base es "http://localhost:8080/rest/V1"
+
+  Scenario: Obtener token de admin
+    When envío POST a "/integration/admin/token"
+      | campo    | valor      |
+      | username | admin      |
+      | password | Admin12345 |
+    Then la respuesta tiene status 200
+    And el body contiene un token JWT
+
+
+@api
+Feature: Productos
+
+  Background:
+    Given la URL base es "http://localhost:8080/rest/V1"
+    And tengo un token de admin válido
+
+  Scenario: Obtener producto por SKU
+    When envío GET a "/products/airpods-pro-2"
+    Then la respuesta tiene status 200
+    And el nombre del producto es "Apple AirPods Pro 2"
+
+  Scenario: Buscar productos por filtro
+    When envío GET a "/products?searchCriteria[filterGroups][0][filters][0][field]=name&searchCriteria[filterGroups][0][filters][0][value]=Samsung&searchCriteria[filterGroups][0][filters][0][conditionType]=like"
+    Then la respuesta tiene status 200
+    And total_count es 1
+
+  Scenario: Consultar producto inexistente
+    When envío GET a "/products/SKU-INEXISTENTE"
+    Then la respuesta tiene status 404
+    And el mensaje contiene "doesn't exist"
+
+
+@api
+Feature: Carrito
+
+  Background:
+    Given la URL base es "http://localhost:8080/rest/V1"
+    And tengo un token de customer válido
+
+  Scenario: Crear carrito vacío
+    When envío POST a "/carts/mine"
+    Then la respuesta tiene status 200
+    And el body contiene un cartId
+
+  Scenario: Agregar producto al carrito
+    Given existe un carrito con ID "{cartId}"
+    When envío POST a "/carts/mine/items"
+      | sku  | airpods-pro-2 |
+      | qty  | 1             |
+    Then la respuesta tiene status 200
+    And el precio es "249.99"
 ```
 
 ### Endpoints REST útiles
