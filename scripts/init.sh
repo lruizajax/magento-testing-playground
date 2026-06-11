@@ -39,7 +39,7 @@ echo "  Redis is ready."
 echo "[3/4] Installing Magento and creating products..."
 echo "  This will run the init container (copy code, setup:install, create products)."
 echo "  It may take 5-10 minutes on first run."
-docker compose --profile init up magento-init
+docker compose --profile init run --rm magento-init
 
 echo "[4/4] Starting web servers (PHP-FPM + Nginx)..."
 docker compose up -d magento-fpm nginx
