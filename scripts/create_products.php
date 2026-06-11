@@ -393,6 +393,8 @@ echo "  esconfig.xsd patched.\n";
 echo "\n--- Adding product images ---\n";
 
 $imageDir = '/data/product-images';
+$importDir = '/data/pub/media/import';
+@mkdir($importDir, 0777, true);
 
 $imagesAdded = 0;
 $imagesSkipped = 0;
@@ -407,16 +409,20 @@ foreach (['airpods-pro-2','galaxy-s25-ultra','wh-1000xm6','ultraboost-running','
         $imagesSkipped++;
         continue;
     }
-    $imgFile = "$imageDir/$sku.jpg";
-    if (!file_exists($imgFile)) {
+    $srcFile = "$imageDir/$sku.jpg";
+    if (!file_exists($srcFile)) {
         echo "    Warning: Image not found for $sku, skipping.\n";
         continue;
     }
+    $dstFile = "$importDir/$sku.jpg";
+    copy($srcFile, $dstFile);
     echo "  Adding image for $sku...\n";
-    $product->addImageToMediaGallery($imgFile, ['image', 'small_image', 'thumbnail'], true, false);
+    $product->addImageToMediaGallery($dstFile, ['image', 'small_image', 'thumbnail'], true, false);
     $productRepository->save($product);
     $imagesAdded++;
 }
+
+passthru('rm -rf ' . escapeshellarg($importDir));
 
 echo "  Images added: $imagesAdded\n";
 echo "  Images skipped (already exist): $imagesSkipped\n";
