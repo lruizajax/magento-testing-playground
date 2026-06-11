@@ -11,6 +11,9 @@ if ! docker compose version > /dev/null 2>&1; then
   exit 1
 fi
 
+echo "[0/4] Cleaning up previous environment..."
+docker compose down --remove-orphans 2>/dev/null || true
+
 echo "[1/4] Starting Docker services..."
 docker compose up -d mariadb elasticsearch redis
 
