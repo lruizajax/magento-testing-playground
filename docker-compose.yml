@@ -78,6 +78,7 @@ services:
     volumes:
       - magento_code:/data
       - ./scripts:/scripts:ro
+      - ./media/product-images:/data/product-images:ro
     environment:
       - DB_HOST=mariadb
       - DB_NAME=bitnami_magento

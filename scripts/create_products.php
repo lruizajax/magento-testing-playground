@@ -392,25 +392,11 @@ echo "  esconfig.xsd patched.\n";
 
 echo "\n--- Adding product images ---\n";
 
-$imageUrls = [
-    'airpods-pro-2'       => 'https://images.pexels.com/photos/10357014/pexels-photo-10357014.jpeg',
-    'galaxy-s25-ultra'    => 'https://images.pexels.com/photos/30466731/pexels-photo-30466731.jpeg',
-    'wh-1000xm6'          => 'https://images.pexels.com/photos/210926/pexels-photo-210926.jpeg',
-    'ultraboost-running'  => 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg',
-    'roland-garros-racket'=> 'https://images.pexels.com/photos/5488715/pexels-photo-5488715.jpeg',
-    'levis-501-original'  => 'https://images.pexels.com/photos/17630811/pexels-photo-17630811.jpeg',
-    'nike-club-hoodie'    => 'https://images.pexels.com/photos/12603316/pexels-photo-12603316.jpeg',
-    'essenza-mini-coffee' => 'https://images.pexels.com/photos/9399040/pexels-photo-9399040.jpeg',
-    'electrolux-eaf50'    => 'https://images.pexels.com/photos/31726758/pexels-photo-31726758.jpeg',
-    'rayban-wayfarer'     => 'https://images.pexels.com/photos/29173452/pexels-photo-29173452.jpeg?auto=compress&cs=tinysrgb&w=400',
-];
-
-$mediaDir = '/data/pub/media';
-$tmpDir = $mediaDir . '/import';
-@mkdir($tmpDir, 0777, true);
+$imageDir = '/data/product-images';
 
 $imagesAdded = 0;
-foreach ($imageUrls as $sku => $url) {
+$imagesSkipped = 0;
+foreach (['airpods-pro-2','galaxy-s25-ultra','wh-1000xm6','ultraboost-running','roland-garros-racket','levis-501-original','nike-club-hoodie','essenza-mini-coffee','electrolux-eaf50','rayban-wayfarer'] as $sku) {
     try {
         $product = $productRepository->get($sku);
     } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
@@ -418,27 +404,22 @@ foreach ($imageUrls as $sku => $url) {
     }
     $existingImages = $product->getMediaGalleryImages();
     if ($existingImages && $existingImages->count() > 0) {
+        $imagesSkipped++;
         continue;
     }
-    $ext = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION) ?: 'jpg';
-    $imgFile = "$tmpDir/$sku.$ext";
-    echo "  Downloading $sku...\n";
-    $imgData = @file_get_contents($url, false, stream_context_create(['http' => ['timeout' => 30]]));
-    if ($imgData === false) {
-        echo "    Warning: Could not download $sku from $url, skipping.\n";
+    $imgFile = "$imageDir/$sku.jpg";
+    if (!file_exists($imgFile)) {
+        echo "    Warning: Image not found for $sku, skipping.\n";
         continue;
     }
-    file_put_contents($imgFile, $imgData);
+    echo "  Adding image for $sku...\n";
     $product->addImageToMediaGallery($imgFile, ['image', 'small_image', 'thumbnail'], true, false);
     $productRepository->save($product);
     $imagesAdded++;
 }
 
-// Cleanup
-passthru('rm -rf ' . escapeshellarg($tmpDir));
-
 echo "  Images added: $imagesAdded\n";
-echo "  Images skipped (already exist): " . (count($imageUrls) - $imagesAdded) . "\n";
+echo "  Images skipped (already exist): $imagesSkipped\n";
 
 echo "\n--- Resizing product images ---\n";
 passthru('php /data/bin/magento catalog:images:resize', $exitCode);
