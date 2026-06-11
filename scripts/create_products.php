@@ -235,51 +235,103 @@ if (is_dir('/data/generated/code')) {
 
 // Apply Elasticsearch 8 compatibility patches to vendor modules.
 // ES 8 disables fielddata access on _id by default. Remove stored_fields
-// and docvalue_fields from the search query initQuery().
-echo "Patching Elasticsearch Builder to remove stored_fields/docvalue_fields for ES 8...\n";
-$builderFiles = [
-    '/data/vendor/magento/module-elasticsearch/ElasticAdapter/SearchAdapter/Query/Builder.php',
-    '/data/vendor/magento/module-elasticsearch/SearchAdapter/Query/Builder.php',
-];
-foreach ($builderFiles as $bf) {
-    if (!file_exists($bf)) { continue; }
-    $bc = file_get_contents($bf);
-    $bc = str_replace(
-        "\$searchQuery['body']['stored_fields'] = '_none_';",
-        '// ES8: stored_fields removed',
-        $bc
-    );
-    $bc = str_replace(
-        "\$searchQuery['body']['docvalue_fields'] = ['_id', '_score'];",
-        '// ES8: docvalue_fields removed',
-        $bc
-    );
-    $bc = str_replace(
-        "\$searchQuery['body']['docvalue_fields'] = ['_id'];",
-        '// ES8: docvalue_fields removed',
-        $bc
-    );
-    file_put_contents($bf, $bc);
-}
-echo "  Builder.php files patched.\n";
+// and docvalue_fields from the search query, and remove 'type' parameter
+// from URL paths (ES 8 removed mapping types entirely).
 
-// Remove 'type' from search query builders (ES 8 doesn't support type in URL path)
-echo "Patching search query builders to remove 'type' parameter for ES 8...\n";
-$typeBuilderFiles = [
+echo "Patching ElasticAdapter Builder to remove stored_fields/docvalue_fields for ES 8...\n";
+$builderFile = '/data/vendor/magento/module-elasticsearch/ElasticAdapter/SearchAdapter/Query/Builder.php';
+if (file_exists($builderFile)) {
+    $bc = file_get_contents($builderFile);
+    $bc = str_replace(
+        "                'stored_fields' => '_none_',
+                'docvalue_fields' => ['_id', '_score'],",
+        "                // ES8: stored_fields/docvalue_fields removed",
+        $bc
+    );
+    file_put_contents($builderFile, $bc);
+    echo "  ElasticAdapter Builder.php patched.\n";
+}
+
+echo "Patching ElasticAdapter & SearchAdapter Builders to remove 'type' for ES 8...\n";
+$builderTypeFiles = [
     '/data/vendor/magento/module-elasticsearch/ElasticAdapter/SearchAdapter/Query/Builder.php',
     '/data/vendor/magento/module-elasticsearch/SearchAdapter/Query/Builder.php',
 ];
-foreach ($typeBuilderFiles as $bf) {
+foreach ($builderTypeFiles as $bf) {
     if (!file_exists($bf)) { continue; }
     $bc = file_get_contents($bf);
     $bc = str_replace(
-        "            'type' => \$this->clientConfig->getEntityType(),\n",
-        "",
+        "            'type' => \$this->clientConfig->getEntityType(),",
+        "            // ES8: type removed",
         $bc
     );
     file_put_contents($bf, $bc);
+    echo "  $bf patched.\n";
 }
-echo "  'type' parameter removed from query builders.\n";
+
+echo "Patching Suggestions.php to remove 'type' for ES 8...\n";
+$suggestFile = '/data/vendor/magento/module-elasticsearch/Model/DataProvider/Base/Suggestions.php';
+if (file_exists($suggestFile)) {
+    $bc = file_get_contents($suggestFile);
+    $bc = str_replace(
+        "            'type' => Config::ELASTICSEARCH_TYPE_DEFAULT,",
+        "            // ES8: type removed",
+        $bc
+    );
+    file_put_contents($suggestFile, $bc);
+    echo "  Suggestions.php patched.\n";
+}
+
+echo "Patching Interval.php to remove 'type' and 'stored_fields' for ES 8...\n";
+$builderTypeFiles = [
+    '/data/vendor/magento/module-elasticsearch/ElasticAdapter/SearchAdapter/Query/Builder.php',
+    '/data/vendor/magento/module-elasticsearch/SearchAdapter/Query/Builder.php',
+];
+foreach ($builderTypeFiles as $bf) {
+    if (!file_exists($bf)) { continue; }
+    $bc = file_get_contents($bf);
+    $bc = str_replace(
+        "            'type' => \$this->clientConfig->getEntityType(),",
+        "            // ES8: type removed",
+        $bc
+    );
+    file_put_contents($bf, $bc);
+    echo "  $bf patched.\n";
+}
+
+echo "Patching Interval.php to remove 'type' and 'stored_fields' for ES 8...\n";
+$intervalFile = '/data/vendor/magento/module-elasticsearch/ElasticAdapter/SearchAdapter/Aggregation/Interval.php';
+if (file_exists($intervalFile)) {
+    $bc = file_get_contents($intervalFile);
+    // Remove 'type' parameter
+    $bc = str_replace(
+        "            'type' => \$this->clientConfig->getEntityType(),",
+        "            // ES8: type removed",
+        $bc
+    );
+    // Remove stored_fields from aggregation query
+    $bc = str_replace(
+        "            'stored_fields' => [",
+        "            // ES8: stored_fields removed
+            'stored_fields' => [",
+        $bc
+    );
+    file_put_contents($intervalFile, $bc);
+    echo "  Interval.php patched.\n";
+}
+
+echo "Patching DataProvider.php to remove 'type' for ES 8...\n";
+$dpFile = '/data/vendor/magento/module-elasticsearch/SearchAdapter/Dynamic/DataProvider.php';
+if (file_exists($dpFile)) {
+    $bc = file_get_contents($dpFile);
+    $bc = str_replace(
+        "            'type' => \$this->clientConfig->getEntityType(),",
+        "            // ES8: type removed",
+        $bc
+    );
+    file_put_contents($dpFile, $bc);
+    echo "  DataProvider.php patched.\n";
+}
 
 // ES 8 rejects sort items with empty direction or field values.
 // Skip any sort item that has no field or no direction.
