@@ -269,42 +269,20 @@ Feature: Carrito de compras
 @web
 Feature: Checkout
 
-  Scenario: Completar compra como guest
+  Scenario: Guest compra un producto con envío y pago estándar
     Given tengo el producto "essenza-mini-coffee" en el carrito
-    When procedo al checkout
-    And ingreso mis datos de envío:
-      | nombre     | Juan Pérez          |
-      | email      | juan@example.com    |
-      | dirección  | Av. Siempre Viva 123 |
-      | ciudad     | Lima                |
-      | país       | PE                  |
-      | código postal | Lima 15074       |
-    And selecciono el método de envío "Flat Rate"
-    And selecciono el método de pago "Check / Money Order"
-    And confirmo la orden
-    Then veo el número de orden generado
-    And el mensaje "Thank you for your purchase"
+    When completo el checkout como guest con datos de envío y pago por defecto
+    Then veo la orden confirmada con el mensaje "Thank you for your purchase"
 
-  Scenario: Completar compra con múltiples productos
-    Given tengo los productos en el carrito:
-      | sku              | cantidad |
-      | airpods-pro-2    | 1        |
-      | ultraboost-running | 1      |
-    When procedo al checkout
-    And ingreso dirección de envío válida
-    And selecciono envío "Flat Rate"
-    And selecciono pago "Check / Money Order"
-    And confirmo la orden
-    Then el total de la orden incluye productos y envío
+  Scenario: Guest compra múltiples productos y el total incluye envío
+    Given tengo los productos "airpods-pro-2" y "ultraboost-running" en el carrito
+    When completo el checkout con envío "Flat Rate" y pago "Check / Money Order"
+    Then el total de la orden incluye el costo de los productos y el envío
 
-  Scenario: Checkout con dirección de facturación diferente
+  Scenario: Guest checkout con dirección de facturación diferente a la de envío
     Given tengo el producto "nike-club-hoodie" en el carrito
-    When procedo al checkout
-    And ingreso dirección de envío
-    And marco dirección de facturación diferente
-    And ingreso dirección de facturación válida
-    And confirmo la orden
-    Then la orden se genera correctamente
+    When completo el checkout con direcciones de envío y facturación distintas
+    Then la orden se genera con ambas direcciones registradas correctamente
 
 
 @web
