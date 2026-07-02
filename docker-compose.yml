@@ -95,24 +95,7 @@ services:
       - ADMIN_EMAIL=admin@example.com
     command: >
       sh -c "
-        echo 'Backing up existing media...' &&
-        if [ -d /data/pub/media/catalog/product ] && ls /data/pub/media/catalog/product/*/ >/dev/null 2>&1; then
-          mkdir -p /tmp/media_backup &&
-          cp -a /data/pub/media/catalog/product/. /tmp/media_backup/
-        fi &&
-        echo 'Copying Magento code to volume...' &&
-        cp -a /var/www/html/. /data/ &&
-        echo 'Restoring media files...' &&
-        if [ -d /tmp/media_backup ]; then
-          mkdir -p /data/pub/media/catalog/product &&
-          cp -a /tmp/media_backup/. /data/pub/media/catalog/product/ &&
-          rm -rf /tmp/media_backup
-        fi &&
-        echo 'Code copied. Running setup...' &&
-        php /scripts/setup.php &&
-        echo 'Setup complete. Running create_products.php...' &&
-        php /scripts/create_products.php &&
-        echo 'All done!'
+        echo 'magento-init container ready. Use step scripts to run setup.'
       "
     depends_on:
       mariadb:
