@@ -43,11 +43,6 @@ foreach ($categories as $name) {
     $category->addData(['parent_id' => 2]);
     $category->save();
 
-    // move(2, null) forces Magento to recalculate path/level via changeParent().
-    // Without it, _afterSave() skips processParent() for new categories (path is empty),
-    // so the category tree is not built and the navigation menu stays empty.
-    $category->move(2, null);
-
     $categoryIds[$name] = $category->getId();
     echo "  Created category: $name (ID: {$category->getId()})\n";
 }

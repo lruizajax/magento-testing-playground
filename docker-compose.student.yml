@@ -1,0 +1,51 @@
+services:
+  mariadb:
+    restart: unless-stopped
+    image: mariadb:11
+    environment:
+      - MARIADB_USER=bn_magento
+      - MARIADB_PASSWORD=bitnami123
+      - MARIADB_DATABASE=bitnami_magento
+      - MARIADB_ROOT_PASSWORD=root123
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./db-init:/docker-entrypoint-initdb.d
+
+  elasticsearch:
+    restart: unless-stopped
+    image: elasticsearch:8.19.15
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+
+  redis:
+    restart: unless-stopped
+    image: redis:7
+    command: redis-server --requirepass redis123
+    volumes:
+      - redis_data:/data
+
+  magento:
+    image: lruizajax/magento-playground:latest
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      mariadb:
+        condition: service_started
+      elasticsearch:
+        condition: service_started
+      redis:
+        condition: service_started
+
+volumes:
+  mariadb_data:
+  elasticsearch_data:
+  redis_data:

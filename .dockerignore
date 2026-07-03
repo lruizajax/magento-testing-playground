@@ -1,0 +1,12 @@
+.git/
+.gitignore
+.idea/
+AGENTS.md
+README.md
+init.sh
+step-1-start-deps.sh
+step-2-install-magento.sh
+step-3-create-products.sh
+step-4-start-web.sh
+docker-compose.yml
+docker-compose.student.yml
