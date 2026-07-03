@@ -105,7 +105,7 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `admin_passwords` WRITE;
 /*!40000 ALTER TABLE `admin_passwords` DISABLE KEYS */;
 INSERT INTO `admin_passwords` VALUES
-(1,1,'eba0d9a2fd0e73b9b2bf2243fe0e2a4c32c5b18373a6b00cea45dda5a32ec630:apdh3A69zKouP8wMNgkONdrUbYrb7Kxy:3_32_2_67108864',0,1783000678);
+(1,1,'34906592ffa0ec89e9df9c1d41bb541be1c8c89f7e4cc91c916410bd633d1894:LF78oZhf3ha0usDIbpalaSaUB9TVk7cc:3_32_2_67108864',0,1783068033);
 /*!40000 ALTER TABLE `admin_passwords` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -178,7 +178,7 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `admin_user` WRITE;
 /*!40000 ALTER TABLE `admin_user` DISABLE KEYS */;
 INSERT INTO `admin_user` VALUES
-(1,'Admin','User','admin@example.com','admin','eba0d9a2fd0e73b9b2bf2243fe0e2a4c32c5b18373a6b00cea45dda5a32ec630:apdh3A69zKouP8wMNgkONdrUbYrb7Kxy:3_32_2_67108864','2026-07-02 13:57:58','2026-07-02 13:57:58',NULL,0,0,1,NULL,NULL,NULL,'en_US',0,NULL,NULL);
+(1,'Admin','User','admin@example.com','admin','34906592ffa0ec89e9df9c1d41bb541be1c8c89f7e4cc91c916410bd633d1894:LF78oZhf3ha0usDIbpalaSaUB9TVk7cc:3_32_2_67108864','2026-07-03 08:40:33','2026-07-03 08:40:33',NULL,0,0,1,NULL,NULL,NULL,'en_US',0,NULL,NULL);
 /*!40000 ALTER TABLE `admin_user` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -276,7 +276,7 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `adminnotification_inbox` WRITE;
 /*!40000 ALTER TABLE `adminnotification_inbox` DISABLE KEYS */;
 INSERT INTO `adminnotification_inbox` VALUES
-(1,4,'2026-07-02 13:57:57','Disable Notice','To improve performance, collecting statistics for the Magento Report module is disabled by default. \nYou can enable it in System Config.','',0,0);
+(1,4,'2026-07-03 08:40:32','Disable Notice','To improve performance, collecting statistics for the Magento Report module is disabled by default. \nYou can enable it in System Config.','',0,0);
 /*!40000 ALTER TABLE `adminnotification_inbox` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -659,13 +659,13 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `catalog_category_entity` WRITE;
 /*!40000 ALTER TABLE `catalog_category_entity` DISABLE KEYS */;
 INSERT INTO `catalog_category_entity` VALUES
-(1,3,0,'2026-07-02 13:57:56','2026-07-02 13:58:28','1',0,0,6),
-(2,3,1,'2026-07-02 13:57:57','2026-07-02 13:58:28','1/2',1,1,5),
-(3,3,2,'2026-07-02 13:58:28','2026-07-02 13:58:28','1/2/3',2,2,0),
-(4,3,2,'2026-07-02 13:58:28','2026-07-02 13:58:28','1/2/4',2,2,0),
-(5,3,2,'2026-07-02 13:58:28','2026-07-02 13:58:28','1/2/5',2,2,0),
-(6,3,2,'2026-07-02 13:58:28','2026-07-02 13:58:28','1/2/6',2,2,0),
-(7,3,2,'2026-07-02 13:58:28','2026-07-02 13:58:28','1/2/7',1,2,0);
+(1,3,0,'2026-07-03 08:40:31','2026-07-03 08:40:31','1',0,0,1),
+(2,3,1,'2026-07-03 08:40:31','2026-07-03 08:40:31','1/2',1,1,0),
+(3,3,2,'2026-07-03 08:40:57','2026-07-03 08:40:58','1/2/3',1,1,0),
+(4,3,2,'2026-07-03 08:40:58','2026-07-03 08:40:58','1/2/4',1,1,0),
+(5,3,2,'2026-07-03 08:40:58','2026-07-03 08:40:58','1/2/5',1,1,0),
+(6,3,2,'2026-07-03 08:40:58','2026-07-03 08:40:58','1/2/6',1,1,0),
+(7,3,2,'2026-07-03 08:40:58','2026-07-03 08:40:58','1/2/7',1,1,0);
 /*!40000 ALTER TABLE `catalog_category_entity` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -969,7 +969,7 @@ CREATE TABLE `catalog_category_entity_varchar` (
   CONSTRAINT `CATALOG_CATEGORY_ENTITY_VARCHAR_STORE_ID_STORE_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `store` (`store_id`) ON DELETE CASCADE,
   CONSTRAINT `CAT_CTGR_ENTT_VCHR_ATTR_ID_EAV_ATTR_ATTR_ID` FOREIGN KEY (`attribute_id`) REFERENCES `eav_attribute` (`attribute_id`) ON DELETE CASCADE,
   CONSTRAINT `CAT_CTGR_ENTT_VCHR_ENTT_ID_CAT_CTGR_ENTT_ENTT_ID` FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci COMMENT='Catalog Category Varchar Attribute Backend Table';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci COMMENT='Catalog Category Varchar Attribute Backend Table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -986,18 +986,18 @@ INSERT INTO `catalog_category_entity_varchar` VALUES
 (4,45,0,3,'Electrónica'),
 (5,119,0,3,'electronica'),
 (6,120,0,3,'electronica'),
-(8,45,0,4,'Sport'),
-(9,119,0,4,'sport'),
-(10,120,0,4,'sport'),
-(12,45,0,5,'Clothing'),
-(13,119,0,5,'clothing'),
-(14,120,0,5,'clothing'),
-(16,45,0,6,'Home & Kitchen'),
-(17,119,0,6,'home-kitchen'),
-(18,120,0,6,'home-kitchen'),
-(20,45,0,7,'Accessories'),
-(21,119,0,7,'accessories'),
-(22,120,0,7,'accessories');
+(7,45,0,4,'Sport'),
+(8,119,0,4,'sport'),
+(9,120,0,4,'sport'),
+(10,45,0,5,'Clothing'),
+(11,119,0,5,'clothing'),
+(12,120,0,5,'clothing'),
+(13,45,0,6,'Home & Kitchen'),
+(14,119,0,6,'home-kitchen'),
+(15,120,0,6,'home-kitchen'),
+(16,45,0,7,'Accessories'),
+(17,119,0,7,'accessories'),
+(18,120,0,7,'accessories');
 /*!40000 ALTER TABLE `catalog_category_entity_varchar` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -1120,7 +1120,7 @@ CREATE TABLE `catalog_category_product_cl` (
   `version_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Version ID',
   `entity_id` int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'Entity ID',
   PRIMARY KEY (`version_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci COMMENT='catalog_category_product_cl';
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci COMMENT='catalog_category_product_cl';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1136,62 +1136,31 @@ INSERT INTO `catalog_category_product_cl` VALUES
 (3,3),
 (4,3),
 (5,3),
-(6,1),
-(7,2),
-(8,3),
-(9,3),
+(6,3),
+(7,4),
+(8,4),
+(9,4),
 (10,4),
 (11,4),
 (12,4),
-(13,4),
-(14,4),
-(15,1),
-(16,2),
-(17,3),
-(18,4),
-(19,4),
-(20,5),
-(21,5),
-(22,5),
-(23,5),
-(24,5),
-(25,1),
-(26,2),
-(27,3),
-(28,3),
-(29,4),
-(30,5),
-(31,5),
-(32,6),
-(33,6),
-(34,6),
-(35,6),
-(36,6),
-(37,1),
-(38,2),
-(39,3),
-(40,4),
-(41,3),
-(42,4),
-(43,5),
-(44,6),
-(45,6),
-(46,7),
-(47,7),
-(48,7),
-(49,7),
-(50,7),
-(51,1),
-(52,2),
-(53,3),
-(54,4),
-(55,5),
-(56,3),
-(57,4),
-(58,5),
-(59,6),
-(60,7),
-(61,7);
+(13,5),
+(14,5),
+(15,5),
+(16,5),
+(17,5),
+(18,5),
+(19,6),
+(20,6),
+(21,6),
+(22,6),
+(23,6),
+(24,6),
+(25,7),
+(26,7),
+(27,7),
+(28,7),
+(29,7),
+(30,7);
 /*!40000 ALTER TABLE `catalog_category_product_cl` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -2207,16 +2176,16 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `catalog_product_entity` WRITE;
 /*!40000 ALTER TABLE `catalog_product_entity` DISABLE KEYS */;
 INSERT INTO `catalog_product_entity` VALUES
-(1,4,'simple','airpods-pro-2',0,0,'2026-07-02 13:58:28','2026-07-02 13:58:29'),
-(2,4,'simple','galaxy-s25-ultra',0,0,'2026-07-02 13:58:29','2026-07-02 13:58:30'),
-(3,4,'simple','wh-1000xm6',0,0,'2026-07-02 13:58:29','2026-07-02 13:58:30'),
-(4,4,'simple','ultraboost-running',0,0,'2026-07-02 13:58:29','2026-07-02 13:58:30'),
-(5,4,'simple','roland-garros-racket',0,0,'2026-07-02 13:58:29','2026-07-02 13:58:31'),
-(6,4,'simple','levis-501-original',0,0,'2026-07-02 13:58:29','2026-07-02 13:58:31'),
-(7,4,'simple','nike-club-hoodie',0,0,'2026-07-02 13:58:29','2026-07-02 13:58:32'),
-(8,4,'simple','essenza-mini-coffee',0,0,'2026-07-02 13:58:29','2026-07-02 13:58:32'),
-(9,4,'simple','electrolux-eaf50',0,0,'2026-07-02 13:58:29','2026-07-02 13:58:32'),
-(10,4,'simple','rayban-wayfarer',0,0,'2026-07-02 13:58:29','2026-07-02 13:58:33');
+(1,4,'simple','airpods-pro-2',0,0,'2026-07-03 08:40:58','2026-07-03 08:40:59'),
+(2,4,'simple','galaxy-s25-ultra',0,0,'2026-07-03 08:40:58','2026-07-03 08:40:59'),
+(3,4,'simple','wh-1000xm6',0,0,'2026-07-03 08:40:58','2026-07-03 08:41:00'),
+(4,4,'simple','ultraboost-running',0,0,'2026-07-03 08:40:58','2026-07-03 08:41:00'),
+(5,4,'simple','roland-garros-racket',0,0,'2026-07-03 08:40:58','2026-07-03 08:41:00'),
+(6,4,'simple','levis-501-original',0,0,'2026-07-03 08:40:58','2026-07-03 08:41:01'),
+(7,4,'simple','nike-club-hoodie',0,0,'2026-07-03 08:40:58','2026-07-03 08:41:01'),
+(8,4,'simple','essenza-mini-coffee',0,0,'2026-07-03 08:40:59','2026-07-03 08:41:02'),
+(9,4,'simple','electrolux-eaf50',0,0,'2026-07-03 08:40:59','2026-07-03 08:41:02'),
+(10,4,'simple','rayban-wayfarer',0,0,'2026-07-03 08:40:59','2026-07-03 08:41:02');
 /*!40000 ALTER TABLE `catalog_product_entity` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -4377,7 +4346,7 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `catalog_product_index_website` WRITE;
 /*!40000 ALTER TABLE `catalog_product_index_website` DISABLE KEYS */;
 INSERT INTO `catalog_product_index_website` VALUES
-(1,1,'2026-07-02',1);
+(1,1,'2026-07-03',1);
 /*!40000 ALTER TABLE `catalog_product_index_website` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -6873,10 +6842,10 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `cms_page` WRITE;
 /*!40000 ALTER TABLE `cms_page` DISABLE KEYS */;
 INSERT INTO `cms_page` VALUES
-(1,'404 Not Found','2columns-right','Page keywords','Page description','no-route','Whoops, our bad...','<dl>\r\n<dt>The page you requested was not found, and we have a fine guess why.</dt>\r\n<dd>\r\n<ul class=\"disc\">\r\n<li>If you typed the URL directly, please make sure the spelling is correct.</li>\r\n<li>If you clicked on a link to get here, the link is outdated.</li>\r\n</ul></dd>\r\n</dl>\r\n<dl>\r\n<dt>What can you do?</dt>\r\n<dd>Have no fear, help is near! There are many ways you can get back on track with Magento Store.</dd>\r\n<dd>\r\n<ul class=\"disc\">\r\n<li><a href=\"#\" onclick=\"history.go(-1); return false;\">Go back</a> to the previous page.</li>\r\n<li>Use the search bar at the top of the page to search for your products.</li>\r\n<li>Follow these links to get you back on track!<br /><a href=\"{{store url=\"\"}}\">Store Home</a> <span class=\"separator\">|</span> <a href=\"{{store url=\"customer/account\"}}\">My Account</a></li></ul></dd></dl>\r\n','2026-07-02 13:57:56','2026-07-02 13:57:56',1,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-(2,'Home page','1column',NULL,NULL,'home','Home Page','<p>CMS homepage content goes here.</p>\r\n','2026-07-02 13:57:56','2026-07-02 13:57:57',1,0,'<!--\n    <referenceContainer name=\"right\">\n        <referenceBlock name=\"catalog.compare.sidebar\" remove=\"true\" />\n    </referenceContainer>-->',NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-(3,'Enable Cookies','1column',NULL,NULL,'enable-cookies','What are Cookies?','<div class=\"enable-cookies cms-content\">\r\n<p>\"Cookies\" are little pieces of data we send when you visit our store. Cookies help us get to know you better and personalize your experience. Plus they help protect you and other shoppers from fraud.</p>\r\n<p style=\"margin-bottom: 20px;\">Set your browser to accept cookies so you can buy items, save items, and receive customized recommendations. Here’s how:</p>\r\n<ul>\r\n<li><a href=\"https://support.google.com/accounts/answer/61416?hl=en\" target=\"_blank\">Google Chrome</a></li>\r\n<li><a href=\"http://windows.microsoft.com/en-us/internet-explorer/delete-manage-cookies\" target=\"_blank\">Internet Explorer</a></li>\r\n<li><a href=\"http://support.apple.com/kb/PH19214\" target=\"_blank\">Safari</a></li>\r\n<li><a href=\"https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences\" target=\"_blank\">Mozilla/Firefox</a></li>\r\n</ul>\r\n</div>','2026-07-02 13:57:56','2026-07-02 13:57:56',1,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-(4,'Privacy and Cookie Policy','1column',NULL,NULL,'privacy-policy-cookie-restriction-mode','Privacy and Cookie Policy','<div class=\"privacy-policy cms-content\">\n    <div class=\"message info\">\n        <span>\n            Please replace this text with you Privacy Policy.\n            Please add any additional cookies your website uses below (e.g. Google Analytics).\n        </span>\n    </div>\n    <p>\n        This privacy policy sets out how this website (hereafter \"the Store\") uses and protects any information that\n        you give the Store while using this website. The Store is committed to ensuring that your privacy is protected.\n        Should we ask you to provide certain information by which you can be identified when using this website, then\n        you can be assured that it will only be used in accordance with this privacy statement. The Store may change\n        this policy from time to time by updating this page. You should check this page from time to time to ensure\n        that you are happy with any changes.\n    </p>\n    <h2>What we collect</h2>\n    <p>We may collect the following information:</p>\n    <ul>\n        <li>name</li>\n        <li>contact information including email address</li>\n        <li>demographic information such as postcode, preferences and interests</li>\n        <li>other information relevant to customer surveys and/or offers</li>\n    </ul>\n    <p>\n        For the exhaustive list of cookies we collect see the <a href=\"#list\">List of cookies we collect</a> section.\n    </p>\n    <h2>What we do with the information we gather</h2>\n    <p>\n        We require this information to understand your needs and provide you with a better service,\n        and in particular for the following reasons:\n    </p>\n    <ul>\n        <li>Internal record keeping.</li>\n        <li>We may use the information to improve our products and services.</li>\n        <li>\n            We may periodically send promotional emails about new products, special offers or other information which we\n            think you may find interesting using the email address which you have provided.\n        </li>\n        <li>\n            From time to time, we may also use your information to contact you for market research purposes.\n            We may contact you by email, phone, fax or mail. We may use the information to customise the website\n            according to your interests.\n        </li>\n    </ul>\n    <h2>Security</h2>\n    <p>\n        We are committed to ensuring that your information is secure. In order to prevent unauthorised access or\n        disclosure, we have put in place suitable physical, electronic and managerial procedures to safeguard and\n        secure the information we collect online.\n    </p>\n    <h2>How we use cookies</h2>\n    <p>\n        A cookie is a small file which asks permission to be placed on your computer\'s hard drive.\n        Once you agree, the file is added and the cookie helps analyse web traffic or lets you know when you visit\n        a particular site. Cookies allow web applications to respond to you as an individual. The web application\n        can tailor its operations to your needs, likes and dislikes by gathering and remembering information about\n        your preferences.\n    </p>\n    <p>\n        We use traffic log cookies to identify which pages are being used. This helps us analyse data about web page\n        traffic and improve our website in order to tailor it to customer needs. We only use this information for\n        statistical analysis purposes and then the data is removed from the system.\n    </p>\n    <p>\n        Overall, cookies help us provide you with a better website, by enabling us to monitor which pages you find\n        useful and which you do not. A cookie in no way gives us access to your computer or any information about you,\n        other than the data you choose to share with us. You can choose to accept or decline cookies.\n        Most web browsers automatically accept cookies, but you can usually modify your browser setting\n        to decline cookies if you prefer. This may prevent you from taking full advantage of the website.\n    </p>\n    <h2>Links to other websites</h2>\n    <p>\n        Our website may contain links to other websites of interest. However, once you have used these links\n        to leave our site, you should note that we do not have any control over that other website.\n        Therefore, we cannot be responsible for the protection and privacy of any information which you provide whilst\n        visiting such sites and such sites are not governed by this privacy statement.\n        You should exercise caution and look at the privacy statement applicable to the website in question.\n    </p>\n    <h2>Controlling your personal information</h2>\n    <p>You may choose to restrict the collection or use of your personal information in the following ways:</p>\n    <ul>\n        <li>\n            whenever you are asked to fill in a form on the website, look for the box that you can click to indicate\n            that you do not want the information to be used by anybody for direct marketing purposes\n        </li>\n        <li>\n            if you have previously agreed to us using your personal information for direct marketing purposes,\n            you may change your mind at any time by letting us know using our Contact Us information\n        </li>\n    </ul>\n    <p>\n        We will not sell, distribute or lease your personal information to third parties unless we have your permission\n        or are required by law to do so. We may use your personal information to send you promotional information\n        about third parties which we think you may find interesting if you tell us that you wish this to happen.\n    </p>\n    <p>\n        You may request details of personal information which we hold about you under the Data Protection Act 1998.\n        A small fee will be payable. If you would like a copy of the information held on you please email us this\n        request using our Contact Us information.\n    </p>\n    <p>\n        If you believe that any information we are holding on you is incorrect or incomplete,\n        please write to or email us as soon as possible, at the above address.\n        We will promptly correct any information found to be incorrect.\n    </p>\n    <h2><a name=\"list\"></a>List of cookies we collect</h2>\n    <p>The table below lists the cookies we collect and what information they store.</p>\n    <table class=\"data-table data-table-definition-list\">\n        <thead>\n        <tr>\n            <th>Cookie Name</th>\n            <th>Cookie Description</th>\n        </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <th>FORM_KEY</th>\n                <td>Stores randomly generated key used to prevent forged requests.</td>\n            </tr>\n            <tr>\n                <th>PHPSESSID</th>\n                <td>Your session ID on the server.</td>\n            </tr>\n            <tr>\n                <th>GUEST-VIEW</th>\n                <td>Allows guests to view and edit their orders.</td>\n            </tr>\n            <tr>\n                <th>PERSISTENT_SHOPPING_CART</th>\n                <td>A link to information about your cart and viewing history, if you have asked for this.</td>\n            </tr>\n            <tr>\n                <th>STF</th>\n                <td>Information on products you have emailed to friends.</td>\n            </tr>\n            <tr>\n                <th>STORE</th>\n                <td>The store view or language you have selected.</td>\n            </tr>\n            <tr>\n                <th>USER_ALLOWED_SAVE_COOKIE</th>\n                <td>Indicates whether a customer allowed to use cookies.</td>\n            </tr>\n            <tr>\n                <th>MAGE-CACHE-SESSID</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>MAGE-CACHE-STORAGE</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>MAGE-CACHE-STORAGE-SECTION-INVALIDATION</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>MAGE-CACHE-TIMEOUT</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>SECTION-DATA-IDS</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>PRIVATE_CONTENT_VERSION</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>X-MAGENTO-VARY</th>\n                <td>Facilitates caching of content on the server to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>MAGE-TRANSLATION-FILE-VERSION</th>\n                <td>Facilitates translation of content to other languages.</td>\n            </tr>\n            <tr>\n                <th>MAGE-TRANSLATION-STORAGE</th>\n                <td>Facilitates translation of content to other languages.</td>\n            </tr>\n        </tbody>\n    </table>\n</div>','2026-07-02 13:57:56','2026-07-02 13:57:56',1,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+(1,'404 Not Found','2columns-right','Page keywords','Page description','no-route','Whoops, our bad...','<dl>\r\n<dt>The page you requested was not found, and we have a fine guess why.</dt>\r\n<dd>\r\n<ul class=\"disc\">\r\n<li>If you typed the URL directly, please make sure the spelling is correct.</li>\r\n<li>If you clicked on a link to get here, the link is outdated.</li>\r\n</ul></dd>\r\n</dl>\r\n<dl>\r\n<dt>What can you do?</dt>\r\n<dd>Have no fear, help is near! There are many ways you can get back on track with Magento Store.</dd>\r\n<dd>\r\n<ul class=\"disc\">\r\n<li><a href=\"#\" onclick=\"history.go(-1); return false;\">Go back</a> to the previous page.</li>\r\n<li>Use the search bar at the top of the page to search for your products.</li>\r\n<li>Follow these links to get you back on track!<br /><a href=\"{{store url=\"\"}}\">Store Home</a> <span class=\"separator\">|</span> <a href=\"{{store url=\"customer/account\"}}\">My Account</a></li></ul></dd></dl>\r\n','2026-07-03 08:40:31','2026-07-03 08:40:31',1,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(2,'Home page','1column',NULL,NULL,'home','Home Page','<p>CMS homepage content goes here.</p>\r\n','2026-07-03 08:40:31','2026-07-03 08:40:32',1,0,'<!--\n    <referenceContainer name=\"right\">\n        <referenceBlock name=\"catalog.compare.sidebar\" remove=\"true\" />\n    </referenceContainer>-->',NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(3,'Enable Cookies','1column',NULL,NULL,'enable-cookies','What are Cookies?','<div class=\"enable-cookies cms-content\">\r\n<p>\"Cookies\" are little pieces of data we send when you visit our store. Cookies help us get to know you better and personalize your experience. Plus they help protect you and other shoppers from fraud.</p>\r\n<p style=\"margin-bottom: 20px;\">Set your browser to accept cookies so you can buy items, save items, and receive customized recommendations. Here’s how:</p>\r\n<ul>\r\n<li><a href=\"https://support.google.com/accounts/answer/61416?hl=en\" target=\"_blank\">Google Chrome</a></li>\r\n<li><a href=\"http://windows.microsoft.com/en-us/internet-explorer/delete-manage-cookies\" target=\"_blank\">Internet Explorer</a></li>\r\n<li><a href=\"http://support.apple.com/kb/PH19214\" target=\"_blank\">Safari</a></li>\r\n<li><a href=\"https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences\" target=\"_blank\">Mozilla/Firefox</a></li>\r\n</ul>\r\n</div>','2026-07-03 08:40:31','2026-07-03 08:40:31',1,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(4,'Privacy and Cookie Policy','1column',NULL,NULL,'privacy-policy-cookie-restriction-mode','Privacy and Cookie Policy','<div class=\"privacy-policy cms-content\">\n    <div class=\"message info\">\n        <span>\n            Please replace this text with you Privacy Policy.\n            Please add any additional cookies your website uses below (e.g. Google Analytics).\n        </span>\n    </div>\n    <p>\n        This privacy policy sets out how this website (hereafter \"the Store\") uses and protects any information that\n        you give the Store while using this website. The Store is committed to ensuring that your privacy is protected.\n        Should we ask you to provide certain information by which you can be identified when using this website, then\n        you can be assured that it will only be used in accordance with this privacy statement. The Store may change\n        this policy from time to time by updating this page. You should check this page from time to time to ensure\n        that you are happy with any changes.\n    </p>\n    <h2>What we collect</h2>\n    <p>We may collect the following information:</p>\n    <ul>\n        <li>name</li>\n        <li>contact information including email address</li>\n        <li>demographic information such as postcode, preferences and interests</li>\n        <li>other information relevant to customer surveys and/or offers</li>\n    </ul>\n    <p>\n        For the exhaustive list of cookies we collect see the <a href=\"#list\">List of cookies we collect</a> section.\n    </p>\n    <h2>What we do with the information we gather</h2>\n    <p>\n        We require this information to understand your needs and provide you with a better service,\n        and in particular for the following reasons:\n    </p>\n    <ul>\n        <li>Internal record keeping.</li>\n        <li>We may use the information to improve our products and services.</li>\n        <li>\n            We may periodically send promotional emails about new products, special offers or other information which we\n            think you may find interesting using the email address which you have provided.\n        </li>\n        <li>\n            From time to time, we may also use your information to contact you for market research purposes.\n            We may contact you by email, phone, fax or mail. We may use the information to customise the website\n            according to your interests.\n        </li>\n    </ul>\n    <h2>Security</h2>\n    <p>\n        We are committed to ensuring that your information is secure. In order to prevent unauthorised access or\n        disclosure, we have put in place suitable physical, electronic and managerial procedures to safeguard and\n        secure the information we collect online.\n    </p>\n    <h2>How we use cookies</h2>\n    <p>\n        A cookie is a small file which asks permission to be placed on your computer\'s hard drive.\n        Once you agree, the file is added and the cookie helps analyse web traffic or lets you know when you visit\n        a particular site. Cookies allow web applications to respond to you as an individual. The web application\n        can tailor its operations to your needs, likes and dislikes by gathering and remembering information about\n        your preferences.\n    </p>\n    <p>\n        We use traffic log cookies to identify which pages are being used. This helps us analyse data about web page\n        traffic and improve our website in order to tailor it to customer needs. We only use this information for\n        statistical analysis purposes and then the data is removed from the system.\n    </p>\n    <p>\n        Overall, cookies help us provide you with a better website, by enabling us to monitor which pages you find\n        useful and which you do not. A cookie in no way gives us access to your computer or any information about you,\n        other than the data you choose to share with us. You can choose to accept or decline cookies.\n        Most web browsers automatically accept cookies, but you can usually modify your browser setting\n        to decline cookies if you prefer. This may prevent you from taking full advantage of the website.\n    </p>\n    <h2>Links to other websites</h2>\n    <p>\n        Our website may contain links to other websites of interest. However, once you have used these links\n        to leave our site, you should note that we do not have any control over that other website.\n        Therefore, we cannot be responsible for the protection and privacy of any information which you provide whilst\n        visiting such sites and such sites are not governed by this privacy statement.\n        You should exercise caution and look at the privacy statement applicable to the website in question.\n    </p>\n    <h2>Controlling your personal information</h2>\n    <p>You may choose to restrict the collection or use of your personal information in the following ways:</p>\n    <ul>\n        <li>\n            whenever you are asked to fill in a form on the website, look for the box that you can click to indicate\n            that you do not want the information to be used by anybody for direct marketing purposes\n        </li>\n        <li>\n            if you have previously agreed to us using your personal information for direct marketing purposes,\n            you may change your mind at any time by letting us know using our Contact Us information\n        </li>\n    </ul>\n    <p>\n        We will not sell, distribute or lease your personal information to third parties unless we have your permission\n        or are required by law to do so. We may use your personal information to send you promotional information\n        about third parties which we think you may find interesting if you tell us that you wish this to happen.\n    </p>\n    <p>\n        You may request details of personal information which we hold about you under the Data Protection Act 1998.\n        A small fee will be payable. If you would like a copy of the information held on you please email us this\n        request using our Contact Us information.\n    </p>\n    <p>\n        If you believe that any information we are holding on you is incorrect or incomplete,\n        please write to or email us as soon as possible, at the above address.\n        We will promptly correct any information found to be incorrect.\n    </p>\n    <h2><a name=\"list\"></a>List of cookies we collect</h2>\n    <p>The table below lists the cookies we collect and what information they store.</p>\n    <table class=\"data-table data-table-definition-list\">\n        <thead>\n        <tr>\n            <th>Cookie Name</th>\n            <th>Cookie Description</th>\n        </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <th>FORM_KEY</th>\n                <td>Stores randomly generated key used to prevent forged requests.</td>\n            </tr>\n            <tr>\n                <th>PHPSESSID</th>\n                <td>Your session ID on the server.</td>\n            </tr>\n            <tr>\n                <th>GUEST-VIEW</th>\n                <td>Allows guests to view and edit their orders.</td>\n            </tr>\n            <tr>\n                <th>PERSISTENT_SHOPPING_CART</th>\n                <td>A link to information about your cart and viewing history, if you have asked for this.</td>\n            </tr>\n            <tr>\n                <th>STF</th>\n                <td>Information on products you have emailed to friends.</td>\n            </tr>\n            <tr>\n                <th>STORE</th>\n                <td>The store view or language you have selected.</td>\n            </tr>\n            <tr>\n                <th>USER_ALLOWED_SAVE_COOKIE</th>\n                <td>Indicates whether a customer allowed to use cookies.</td>\n            </tr>\n            <tr>\n                <th>MAGE-CACHE-SESSID</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>MAGE-CACHE-STORAGE</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>MAGE-CACHE-STORAGE-SECTION-INVALIDATION</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>MAGE-CACHE-TIMEOUT</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>SECTION-DATA-IDS</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>PRIVATE_CONTENT_VERSION</th>\n                <td>Facilitates caching of content on the browser to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>X-MAGENTO-VARY</th>\n                <td>Facilitates caching of content on the server to make pages load faster.</td>\n            </tr>\n            <tr>\n                <th>MAGE-TRANSLATION-FILE-VERSION</th>\n                <td>Facilitates translation of content to other languages.</td>\n            </tr>\n            <tr>\n                <th>MAGE-TRANSLATION-STORAGE</th>\n                <td>Facilitates translation of content to other languages.</td>\n            </tr>\n        </tbody>\n    </table>\n</div>','2026-07-03 08:40:31','2026-07-03 08:40:31',1,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `cms_page` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -6932,7 +6901,7 @@ CREATE TABLE `core_config_data` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Updated At',
   PRIMARY KEY (`config_id`),
   UNIQUE KEY `CORE_CONFIG_DATA_SCOPE_SCOPE_ID_PATH` (`scope`,`scope_id`,`path`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci COMMENT='Config Data';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci COMMENT='Config Data';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -6943,19 +6912,20 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `core_config_data` WRITE;
 /*!40000 ALTER TABLE `core_config_data` DISABLE KEYS */;
 INSERT INTO `core_config_data` VALUES
-(1,'default',0,'catalog/search/engine','elasticsearch7','2026-07-02 13:57:54'),
-(2,'default',0,'catalog/search/elasticsearch7_server_hostname','elasticsearch','2026-07-02 13:57:54'),
-(3,'default',0,'catalog/search/elasticsearch7_server_port','9200','2026-07-02 13:57:54'),
-(4,'default',0,'web/unsecure/base_url','http://localhost:8080/','2026-07-02 13:57:54'),
-(5,'default',0,'general/region/display_all','1','2026-07-02 13:57:55'),
-(6,'default',0,'general/region/state_required','AL,AR,AU,BG,BO,BR,BY,CA,CH,CL,CN,CO,CR,CZ,DK,EC,EE,ES,GR,GY,HR,IN,IS,IT,LT,LV,MX,PE,PL,PT,PY,RO,SE,SR,UA,US,UY,VE','2026-07-02 13:57:56'),
-(7,'default',0,'catalog/category/root_id','2','2026-07-02 13:57:57'),
-(8,'default',0,'twofactorauth/duo/application_key','P0CaE7Zlzqq5ebThnLLrlvUIp4kX7RiGuBP5fkxzHkrK9rWGLSYn2BL9rFSb8goG','2026-07-02 13:57:57'),
-(9,'default',0,'analytics/subscription/enabled','1','2026-07-02 13:57:57'),
-(10,'default',0,'crontab/default/jobs/analytics_subscribe/schedule/cron_expr','0 * * * *','2026-07-02 13:57:57'),
-(11,'default',0,'crontab/default/jobs/analytics_collect_data/schedule/cron_expr','00 02 * * *','2026-07-02 13:57:57'),
-(12,'default',0,'msp_securitysuite_recaptcha/frontend/enabled','0','2026-07-02 13:57:58'),
-(13,'default',0,'msp_securitysuite_recaptcha/backend/enabled','0','2026-07-02 13:57:58');
+(1,'default',0,'catalog/search/engine','elasticsearch7','2026-07-03 08:40:29'),
+(2,'default',0,'catalog/search/elasticsearch7_server_hostname','elasticsearch','2026-07-03 08:40:29'),
+(3,'default',0,'catalog/search/elasticsearch7_server_port','9200','2026-07-03 08:40:29'),
+(4,'default',0,'web/unsecure/base_url','http://localhost:8080/','2026-07-03 08:40:29'),
+(5,'default',0,'general/region/display_all','1','2026-07-03 08:40:30'),
+(6,'default',0,'general/region/state_required','AL,AR,AU,BG,BO,BR,BY,CA,CH,CL,CN,CO,CR,CZ,DK,EC,EE,ES,GR,GY,HR,IN,IS,IT,LT,LV,MX,PE,PL,PT,PY,RO,SE,SR,UA,US,UY,VE','2026-07-03 08:40:31'),
+(7,'default',0,'catalog/category/root_id','2','2026-07-03 08:40:31'),
+(8,'default',0,'twofactorauth/duo/application_key','vcVPnX1UjjLC8Yx55XMdIgh5TO7lLn7eP8w9erHsdk8Awl4GaomndODrptxTArXK','2026-07-03 08:40:32'),
+(9,'default',0,'analytics/subscription/enabled','1','2026-07-03 08:40:32'),
+(10,'default',0,'crontab/default/jobs/analytics_subscribe/schedule/cron_expr','0 * * * *','2026-07-03 08:40:32'),
+(11,'default',0,'crontab/default/jobs/analytics_collect_data/schedule/cron_expr','00 02 * * *','2026-07-03 08:40:32'),
+(12,'default',0,'msp_securitysuite_recaptcha/frontend/enabled','0','2026-07-03 08:40:32'),
+(13,'default',0,'msp_securitysuite_recaptcha/backend/enabled','0','2026-07-03 08:40:32'),
+(14,'default',0,'web/seo/use_rewrites','1','2026-07-03 08:41:58');
 /*!40000 ALTER TABLE `core_config_data` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -12143,11 +12113,11 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `flag` WRITE;
 /*!40000 ALTER TABLE `flag` DISABLE KEYS */;
 INSERT INTO `flag` VALUES
-(1,'analytics_link_attempts_reverse_counter',0,'24','2026-07-02 13:57:57'),
-(2,'config_hash',0,'{\"scopes\":\"0701105083d36cbd154096f03453cf4ebb7a3b76\",\"themes\":\"139c5a5318ed52f1f5f09948f6c7a256f9881165\"}','2026-07-02 13:57:59'),
-(3,'feed_metadata_salesOrders',0,'{\"lockedBy\":\"full reindex(legacy)(23)\"}','2026-07-02 13:59:30'),
-(4,'feed_metadata_salesOrderStatuses',0,'{\"lockedBy\":\"full reindex(legacy)(23)\"}','2026-07-02 13:59:30'),
-(5,'feed_metadata_stores',0,'{\"lockedBy\":\"full reindex(legacy)(23)\"}','2026-07-02 13:59:30');
+(1,'analytics_link_attempts_reverse_counter',0,'24','2026-07-03 08:40:32'),
+(2,'config_hash',0,'{\"scopes\":\"0701105083d36cbd154096f03453cf4ebb7a3b76\",\"themes\":\"139c5a5318ed52f1f5f09948f6c7a256f9881165\",\"system\":\"2be88ca4242c76e8253ac62474851065032d6833\"}','2026-07-03 08:41:59'),
+(3,'feed_metadata_salesOrders',0,'{\"lockedBy\":\"full reindex(legacy)(23)\"}','2026-07-03 08:41:56'),
+(4,'feed_metadata_salesOrderStatuses',0,'{\"lockedBy\":\"full reindex(legacy)(23)\"}','2026-07-03 08:41:56'),
+(5,'feed_metadata_stores',0,'{\"lockedBy\":\"full reindex(legacy)(23)\"}','2026-07-03 08:41:56');
 /*!40000 ALTER TABLE `flag` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -12300,20 +12270,20 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `indexer_state` WRITE;
 /*!40000 ALTER TABLE `indexer_state` DISABLE KEYS */;
 INSERT INTO `indexer_state` VALUES
-(1,'design_config_grid','valid','2026-07-02 13:59:29','9417bf4492e613e366bb763c67948390'),
-(2,'customer_grid','valid','2026-07-02 13:59:29','c037def20f4426f23bd1f0aa38451806'),
-(3,'catalog_category_product','valid','2026-07-02 13:59:29','adeed1c48f741980adc0c5e44f58c357'),
-(4,'catalog_product_category','valid','2026-07-02 13:59:29','be0135b971896d29ef0fb1cfe8d38e94'),
-(5,'catalogrule_rule','valid','2026-07-02 13:59:30','71acdeecd7909bd034eb9210968f6287'),
-(6,'catalog_product_attribute','valid','2026-07-02 13:59:30','73dd0f25e38c79a27d4f83870055c774'),
-(7,'cataloginventory_stock','valid','2026-07-02 13:59:30','f833c601ae1d1ec4ec520b72c2ce99d5'),
-(8,'inventory','valid','2026-07-02 13:59:30','13a7b74ef3dc4d97fb4f6d93e0ead024'),
-(9,'catalogrule_product','valid','2026-07-02 13:59:30','5d0640a508d107b6d716b42d7acbc1e9'),
-(10,'catalog_product_price','valid','2026-07-02 13:59:30','e19ba6c101f15fe765f8c5eae241ae90'),
-(11,'catalogsearch_fulltext','valid','2026-07-02 13:59:30','bb561d668488169751348c74813bdedf'),
-(12,'sales_order_data_exporter','valid','2026-07-02 13:59:30','8411b591eb19402764c1a76116ca516d'),
-(13,'sales_order_status_data_exporter','valid','2026-07-02 13:59:30','d70ea7bd24970d85e40a359041e15e74'),
-(14,'store_data_exporter','valid','2026-07-02 13:59:30','b3cb88463c5d511c664dc60857463a01');
+(1,'design_config_grid','valid','2026-07-03 08:41:55','88143a5dd76e3c579fe7384e84e1f5d2'),
+(2,'customer_grid','valid','2026-07-03 08:41:56','be7e7f9a05a65193fe95206252419c03'),
+(3,'catalog_category_product','valid','2026-07-03 08:41:56','f888b3cf4ff2e24bf0374c2f72d4754b'),
+(4,'catalog_product_category','valid','2026-07-03 08:41:56','d9f05667f4abdac5872bbb8248c444eb'),
+(5,'catalogrule_rule','valid','2026-07-03 08:41:56','16b279a0121fbdde3240f9a40e067615'),
+(6,'catalog_product_attribute','valid','2026-07-03 08:41:56','a3ee75bb56c4249a8464a165dec3b301'),
+(7,'cataloginventory_stock','valid','2026-07-03 08:41:56','7e985b26491519e035d85ae08f7d6238'),
+(8,'inventory','valid','2026-07-03 08:41:56','0dc9d1513b8163d8857af9dbfeaf25cb'),
+(9,'catalogrule_product','valid','2026-07-03 08:41:56','1e4f30fba525cbe60417505fb6bf7f5b'),
+(10,'catalog_product_price','valid','2026-07-03 08:41:56','3d19516ff5891e3ed36c91db0a815763'),
+(11,'catalogsearch_fulltext','valid','2026-07-03 08:41:57','d5577576d592f31ba2d67863212827e7'),
+(12,'sales_order_data_exporter','valid','2026-07-03 08:41:56','8366acb246ab3701cacd626e16a6f5fe'),
+(13,'sales_order_status_data_exporter','valid','2026-07-03 08:41:56','82382ca06c9f1369bc1d97848f8dbdc7'),
+(14,'store_data_exporter','valid','2026-07-03 08:41:56','a2369a56299d63208c7dc44f85c17ffc');
 /*!40000 ALTER TABLE `indexer_state` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -13307,20 +13277,20 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `mview_state` WRITE;
 /*!40000 ALTER TABLE `mview_state` DISABLE KEYS */;
 INSERT INTO `mview_state` VALUES
-(1,'sales_order_data_exporter','enabled','idle','2026-07-02 13:59:30',0),
-(2,'sales_order_status_data_exporter','enabled','idle','2026-07-02 13:59:30',12),
-(3,'store_data_exporter','enabled','idle','2026-07-02 13:59:30',2),
-(4,'design_config_dummy','enabled','idle','2026-07-02 13:59:29',0),
-(5,'customer_dummy','enabled','idle','2026-07-02 13:59:29',0),
-(6,'catalog_category_product','enabled','idle','2026-07-02 13:59:29',61),
-(7,'catalog_product_category','enabled','idle','2026-07-02 13:59:29',60),
-(8,'catalogrule_rule','enabled','idle','2026-07-02 13:59:30',0),
-(9,'catalog_product_attribute','enabled','idle','2026-07-02 13:59:30',220),
-(10,'cataloginventory_stock','enabled','idle','2026-07-02 13:59:30',50),
-(11,'inventory','enabled','idle','2026-07-02 13:59:30',10),
-(12,'catalogrule_product','enabled','idle','2026-07-02 13:59:30',260),
-(13,'catalog_product_price','enabled','idle','2026-07-02 13:59:30',80),
-(14,'catalogsearch_fulltext','enabled','idle','2026-07-02 13:59:30',270);
+(1,'sales_order_data_exporter','enabled','idle','2026-07-03 08:41:56',0),
+(2,'sales_order_status_data_exporter','enabled','idle','2026-07-03 08:41:56',12),
+(3,'store_data_exporter','enabled','idle','2026-07-03 08:41:56',2),
+(4,'design_config_dummy','enabled','idle','2026-07-03 08:41:55',0),
+(5,'customer_dummy','enabled','idle','2026-07-03 08:41:56',0),
+(6,'catalog_category_product','enabled','idle','2026-07-03 08:41:56',30),
+(7,'catalog_product_category','enabled','idle','2026-07-03 08:41:56',60),
+(8,'catalogrule_rule','enabled','idle','2026-07-03 08:41:56',0),
+(9,'catalog_product_attribute','enabled','idle','2026-07-03 08:41:56',220),
+(10,'cataloginventory_stock','enabled','idle','2026-07-03 08:41:56',50),
+(11,'inventory','enabled','idle','2026-07-03 08:41:56',10),
+(12,'catalogrule_product','enabled','idle','2026-07-03 08:41:56',260),
+(13,'catalog_product_price','enabled','idle','2026-07-03 08:41:56',80),
+(14,'catalogsearch_fulltext','enabled','idle','2026-07-03 08:41:57',270);
 /*!40000 ALTER TABLE `mview_state` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -14586,7 +14556,7 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `queue_poison_pill` WRITE;
 /*!40000 ALTER TABLE `queue_poison_pill` DISABLE KEYS */;
 INSERT INTO `queue_poison_pill` VALUES
-('version-6a466e660dcb7');
+('version-6a4775d746a4c');
 /*!40000 ALTER TABLE `queue_poison_pill` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -16311,18 +16281,18 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `sales_data_exporter_order_statuses` WRITE;
 /*!40000 ALTER TABLE `sales_data_exporter_order_statuses` DISABLE KEYS */;
 INSERT INTO `sales_data_exporter_order_statuses` VALUES
-('canceled','{\"status\":\"canceled\",\"label\":\"Canceled\"}','2026-07-02 13:59:30'),
-('closed','{\"status\":\"closed\",\"label\":\"Closed\"}','2026-07-02 13:59:30'),
-('complete','{\"status\":\"complete\",\"label\":\"Complete\"}','2026-07-02 13:59:30'),
-('fraud','{\"status\":\"fraud\",\"label\":\"Suspected Fraud\"}','2026-07-02 13:59:30'),
-('holded','{\"status\":\"holded\",\"label\":\"On Hold\"}','2026-07-02 13:59:30'),
-('payment_review','{\"status\":\"payment_review\",\"label\":\"Payment Review\"}','2026-07-02 13:59:30'),
-('paypal_canceled_reversal','{\"status\":\"paypal_canceled_reversal\",\"label\":\"PayPal Canceled Reversal\"}','2026-07-02 13:59:30'),
-('paypal_reversed','{\"status\":\"paypal_reversed\",\"label\":\"PayPal Reversed\"}','2026-07-02 13:59:30'),
-('pending','{\"status\":\"pending\",\"label\":\"Pending\"}','2026-07-02 13:59:30'),
-('pending_payment','{\"status\":\"pending_payment\",\"label\":\"Pending Payment\"}','2026-07-02 13:59:30'),
-('pending_paypal','{\"status\":\"pending_paypal\",\"label\":\"Pending PayPal\"}','2026-07-02 13:59:30'),
-('processing','{\"status\":\"processing\",\"label\":\"Processing\"}','2026-07-02 13:59:30');
+('canceled','{\"status\":\"canceled\",\"label\":\"Canceled\"}','2026-07-03 08:41:56'),
+('closed','{\"status\":\"closed\",\"label\":\"Closed\"}','2026-07-03 08:41:56'),
+('complete','{\"status\":\"complete\",\"label\":\"Complete\"}','2026-07-03 08:41:56'),
+('fraud','{\"status\":\"fraud\",\"label\":\"Suspected Fraud\"}','2026-07-03 08:41:56'),
+('holded','{\"status\":\"holded\",\"label\":\"On Hold\"}','2026-07-03 08:41:56'),
+('payment_review','{\"status\":\"payment_review\",\"label\":\"Payment Review\"}','2026-07-03 08:41:56'),
+('paypal_canceled_reversal','{\"status\":\"paypal_canceled_reversal\",\"label\":\"PayPal Canceled Reversal\"}','2026-07-03 08:41:56'),
+('paypal_reversed','{\"status\":\"paypal_reversed\",\"label\":\"PayPal Reversed\"}','2026-07-03 08:41:56'),
+('pending','{\"status\":\"pending\",\"label\":\"Pending\"}','2026-07-03 08:41:56'),
+('pending_payment','{\"status\":\"pending_payment\",\"label\":\"Pending Payment\"}','2026-07-03 08:41:56'),
+('pending_paypal','{\"status\":\"pending_paypal\",\"label\":\"Pending PayPal\"}','2026-07-03 08:41:56'),
+('processing','{\"status\":\"processing\",\"label\":\"Processing\"}','2026-07-03 08:41:56');
 /*!40000 ALTER TABLE `sales_data_exporter_order_statuses` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -19523,7 +19493,7 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `stores_data_exporter` WRITE;
 /*!40000 ALTER TABLE `stores_data_exporter` DISABLE KEYS */;
 INSERT INTO `stores_data_exporter` VALUES
-(1,'{\"store_view_id\":\"1\",\"store_id\":1,\"website_id\":1,\"store_view_name\":\"Default Store View\",\"store_name\":\"Main Website Store\",\"website_name\":\"Main Website\"}','2026-07-02 13:59:30');
+(1,'{\"store_view_id\":\"1\",\"store_id\":1,\"website_id\":1,\"store_view_name\":\"Default Store View\",\"store_name\":\"Main Website Store\",\"website_name\":\"Main Website\"}','2026-07-03 08:41:56');
 /*!40000 ALTER TABLE `stores_data_exporter` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -20155,9 +20125,9 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `theme` WRITE;
 /*!40000 ALTER TABLE `theme` DISABLE KEYS */;
 INSERT INTO `theme` VALUES
-(1,NULL,'Magento/blank','Magento Blank','preview_image_6a466e6475a91.jpeg',0,'frontend',0,'Magento/blank'),
+(1,NULL,'Magento/blank','Magento Blank','preview_image_6a47757f6e84a.jpeg',0,'frontend',0,'Magento/blank'),
 (2,NULL,'Magento/backend','Magento 2 backend',NULL,0,'adminhtml',0,'Magento/backend'),
-(3,1,'Magento/luma','Magento Luma','preview_image_6a466e64837fa.jpeg',0,'frontend',0,'Magento/luma');
+(3,1,'Magento/luma','Magento Luma','preview_image_6a47757f7cb5e.jpeg',0,'frontend',0,'Magento/luma');
 /*!40000 ALTER TABLE `theme` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -20758,4 +20728,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-07-02 14:45:25
+-- Dump completed on 2026-07-03  8:43:30

@@ -40,11 +40,21 @@ foreach ($categories as $name) {
     $category->setIncludeInMenu(true);
     $category->setAttributeSetId($category->getDefaultAttributeSetId());
     $category->setStoreId(0);
-    $category->addData(['parent_id' => 2]);
+    $category->setParentId(2);
     $category->save();
 
     $categoryIds[$name] = $category->getId();
     echo "  Created category: $name (ID: {$category->getId()})\n";
+
+    // Ensure path is correct (parent_path/id). The programmatic save above
+    // may produce a malformed path (e.g. /{id} instead of 1/2/{id}) when
+    // certain event observers or plugins are registered.
+    $resConn = $objectManager->get(\Magento\Framework\App\ResourceConnection::class);
+    $resConn->getConnection()->update(
+        $resConn->getTableName('catalog_category_entity'),
+        ['path' => '1/2/' . $category->getId()],
+        ['entity_id = ?' => $category->getId()]
+    );
 }
 
 // Generate URL rewrites for categories so /electronica.html etc. work immediately
@@ -308,10 +318,34 @@ if ($exitCode !== 0) {
     echo "  Warning: Reindex may have had issues (exit code $exitCode)\n";
 }
 
+echo "Rebuilding catalog search index in Elasticsearch...\n";
+$esMaxRetries = 5;
+for ($retry = 1; $retry <= $esMaxRetries; $retry++) {
+    passthru('php /data/bin/magento indexer:reindex catalogsearch_fulltext', $exitCode);
+    if ($exitCode !== 0) {
+        echo "  Attempt $retry/$esMaxRetries failed (exit code $exitCode)\n";
+        sleep(3);
+        continue;
+    }
+    $esCheck = shell_exec('curl -s http://' . getenv('ES_HOST') . ':' . getenv('ES_PORT') . '/_cat/indices/magento2_product_* 2>&1');
+    if (!empty(trim($esCheck ?? ''))) {
+        echo "  Elasticsearch index confirmed.\n";
+        break;
+    }
+    echo "  Attempt $retry/$esMaxRetries: Elasticsearch index not found yet, retrying...\n";
+    sleep(3);
+}
+
 echo "Enabling Full Page Cache...\n";
 passthru('php /data/bin/magento cache:enable full_page', $exitCode);
 if ($exitCode !== 0) {
     echo "  Warning: Cache enable may have had issues (exit code $exitCode)\n";
+}
+
+echo "Enabling web/seo/use_rewrites for clean URLs...\n";
+passthru('php /data/bin/magento config:set web/seo/use_rewrites 1', $exitCode);
+if ($exitCode !== 0) {
+    echo "  Warning: Could not enable URL rewrites (exit code $exitCode)\n";
 }
 
 echo "\n--- Summary ---\n";

@@ -70,7 +70,7 @@ docker compose --profile init run --rm magento-init php /scripts/create_products
 
 log "Step 4/7: Exporting code..."
 docker compose run --rm -v "$BUILD_DIR/code:/export" magento-init sh -c "
-    rm -rf /data/var/cache /data/var/log /data/var/report /data/var/tmp /data/var/session 2>/dev/null || true &&
+    rm -rf /data/var/cache /data/var/log /data/var/report /data/var/tmp /data/var/session /data/var/.es_reindex_done 2>/dev/null || true &&
     cp -a /data/. /export/ 2>/dev/null || true
 "
 if [ ! -f "$BUILD_DIR/code/app/etc/env.php" ]; then
@@ -80,7 +80,7 @@ fi
 log "  Code exported (app/etc/env.php present)"
 
 log "Step 5/7: Dumping database..."
-docker compose exec -T mariadb mysqldump \
+docker compose exec -T mariadb mariadb-dump \
     -u bn_magento -pbitnami123 bitnami_magento \
     --add-drop-table --create-options --extended-insert \
     > db-init/dump.sql
@@ -92,8 +92,8 @@ if [ "$DUMP_SIZE" -lt 1000 ]; then
 fi
 log "  Database dumped ($DUMP_SIZE bytes)"
 
-log "Step 6/7: Building Docker image..."
-docker build -t ${IMAGE_NAME}:${TAG} .
+log "Step 6/7: Building Docker image (linux/amd64)..."
+docker build --platform linux/amd64 -t ${IMAGE_NAME}:${TAG} .
 
 log "Step 7/7: Pushing to Docker Hub..."
 docker push ${IMAGE_NAME}:${TAG}
