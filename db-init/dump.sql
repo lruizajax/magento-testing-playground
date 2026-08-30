@@ -6915,7 +6915,7 @@ INSERT INTO `core_config_data` VALUES
 (1,'default',0,'catalog/search/engine','elasticsearch7','2026-07-03 08:40:29'),
 (2,'default',0,'catalog/search/elasticsearch7_server_hostname','elasticsearch','2026-07-03 08:40:29'),
 (3,'default',0,'catalog/search/elasticsearch7_server_port','9200','2026-07-03 08:40:29'),
-(4,'default',0,'web/unsecure/base_url','http://localhost:8080/','2026-07-03 08:40:29'),
+(4,'default',0,'web/unsecure/base_url','http://localhost:8081/','2026-07-03 08:40:29'),
 (5,'default',0,'general/region/display_all','1','2026-07-03 08:40:30'),
 (6,'default',0,'general/region/state_required','AL,AR,AU,BG,BO,BR,BY,CA,CH,CL,CN,CO,CR,CZ,DK,EC,EE,ES,GR,GY,HR,IN,IS,IT,LT,LV,MX,PE,PL,PT,PY,RO,SE,SR,UA,US,UY,VE','2026-07-03 08:40:31'),
 (7,'default',0,'catalog/category/root_id','2','2026-07-03 08:40:31'),
@@ -6925,7 +6925,9 @@ INSERT INTO `core_config_data` VALUES
 (11,'default',0,'crontab/default/jobs/analytics_collect_data/schedule/cron_expr','00 02 * * *','2026-07-03 08:40:32'),
 (12,'default',0,'msp_securitysuite_recaptcha/frontend/enabled','0','2026-07-03 08:40:32'),
 (13,'default',0,'msp_securitysuite_recaptcha/backend/enabled','0','2026-07-03 08:40:32'),
-(14,'default',0,'web/seo/use_rewrites','1','2026-07-03 08:41:58');
+(14,'default',0,'web/seo/use_rewrites','1','2026-07-03 08:41:58'),
+(15,'default',0,'admin/captcha/enable','0','2026-08-24 18:50:00'),
+(16,'default',0,'customer/captcha/enable','0','2026-08-24 18:50:00');
 /*!40000 ALTER TABLE `core_config_data` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;

@@ -1,79 +1,100 @@
-# Magento Testing Playground — Entorno de Pruebas para BDD/Cucumber
+# Magento Testing Playground — Testing Environment for BDD/Cucumber
 
-Magento 2.4.7 corriendo en Docker con **Elasticsearch 8**, MariaDB 11 y Redis 7.
-Incluye **10 productos reales con fotos** y **5 categorías**, listo para usar en cursos de automatización de pruebas con Cucumber BDD.
+Magento 2.4.7 running in Docker with **Elasticsearch 8**, MariaDB 11 and Redis 7.
+It includes **10 real products with photos** and **5 categories**, ready to use in test automation courses with Cucumber BDD.
 
 ---
 
-## Inicio rápido (alumnos)
+## Quick start (students)
 
 ```sh
 docker compose -f docker-compose.student.yml up -d
 ```
 
-Esperar ~30 segundos, abrir **http://localhost:8080**
+Wait ~30 seconds, then open **http://localhost:8081**
 
-| URL | Descripción |
+| URL | Description |
 |---|---|
-| http://localhost:8080 | Frontend (Luma theme) |
-| http://localhost:8080/admin | Admin (`admin` / `Admin12345`) |
+| http://localhost:8081 | Frontend (Luma theme) |
+| http://localhost:8081/admin | Admin (`admin` / `Admin12345`) |
 
-## Requisitos
+## Requirements
 
 - Docker 24+
 - Docker Compose v2+
-- Docker con mínimo **6 GB de RAM** asignada
-- macOS o Linux (en Windows usar WSL2)
+- Docker with at least **6 GB of RAM** allocated
+- macOS or Linux (use WSL2 on Windows)
 
 ## Stack
 
-| Servicio | Imagen | Propósito |
+| Service | Image | Purpose |
 |---|---|---|
-| Magento | `lruizajax/magento-playground:latest` | Nginx + PHP 8.2 FPM + Magento pre-instalado |
-| MariaDB | `mariadb:11` | Base de datos |
-| Elasticsearch | `elasticsearch:8.19.15` | Motor de búsqueda |
-| Redis | `redis:7` | Caché y sesiones |
+| Magento | `lruizajax/magento-playground:latest` | Nginx + PHP 8.2 FPM + pre-installed Magento |
+| MariaDB | `mariadb:11` | Database |
+| Elasticsearch | `elasticsearch:8.19.15` | Search engine |
+| Redis | `redis:7` | Cache and sessions |
 
-## Credenciales
+## Credentials
 
-- **Admin:** `admin` / `Admin12345` (2FA desactivado)
+- **Admin:** `admin` / `Admin12345` (2FA disabled)
 - **MariaDB:** `bn_magento` / `bitnami123` — DB: `bitnami_magento`
 - **Redis:** password `redis123`
 
-## Contenido del catálogo
+## Catalog content
 
-- 5 categorías: Electrónica, Sport, Clothing, Home & Kitchen, Accessories
-- 10 productos con imágenes reales
-- URL rewrites generados
-- DI compilado, static content desplegado
-- Modo producción, todos los índices actualizados
+- 5 categories: Electronics, Sport, Clothing, Home & Kitchen, Accessories
+- 10 products with real images
+- URL rewrites generated
+- Compiled DI, deployed static content
+- Production mode, all indexes updated
 
-## Parámetros del admin
+## Admin parameters
 
 - Backend frontname: `admin`
-- Usuario: `admin`
-- Contraseña: `Admin12345`
+- Username: `admin`
+- Password: `Admin12345`
 - Email: `admin@example.com`
 
-## Cómo funciona
+## Disabling CAPTCHA for automated tests
 
-La imagen `lruizajax/magento-playground` contiene Nginx + PHP-FPM + Magento pre-instalado en una sola imagen.
-No necesita volúmenes compartidos ni containers init. En el primer inicio, MariaDB importa automáticamente
-el dump SQL con el catálogo desde `db-init/dump.sql`.
+The dump already ships with CAPTCHA and reCAPTCHA disabled. If you ever need to re-apply
+(or toggle) those settings without rebuilding the image, run the following SQL directly
+inside the MariaDB container to set all CAPTCHA-related paths to `0` (disabled):
 
-### Para desarrollar / rebuildear la imagen
+```sh
+docker compose -f docker-compose.student.yml exec mariadb mysql \
+  -u bn_magento -pbitnami123 bitnami_magento \
+  -e "UPDATE core_config_data SET value='0' WHERE path IN
+     ('admin/captcha/enable','customer/captcha/enable',
+      'msp_securitysuite_recaptcha/frontend/enabled',
+      'msp_securitysuite_recaptcha/backend/enabled');"
+```
+
+Then clear the config cache inside the Magento container:
+
+```sh
+docker compose -f docker-compose.student.yml exec magento bin/magento cache:clean config
+```
+
+## How it works
+
+The `lruizajax/magento-playground` image bundles Nginx + PHP-FPM + a pre-installed Magento in a single image.
+It needs no shared volumes or init containers. On first boot, MariaDB automatically imports
+the SQL dump with the catalog from `db-init/dump.sql`.
+
+### To develop / rebuild the image
 
 ```sh
 bash scripts/build-playground.sh
 ```
 
-Requiere `docker login` y tarda ~15 minutos (instalación + creación de catálogo).
+Requires `docker login` and takes ~15 minutes (installation + catalog creation).
 
 ## Troubleshooting
 
-| Problema | Solución |
+| Problem | Solution |
 |---|---|
-| `port already allocated` | `docker compose -f docker-compose.student.yml down`, luego `up -d` de nuevo |
-| La página no carga | Esperar 30 segundos a que MariaDB termine la importación inicial |
-| Error de platform (amd64/arm64) | Es normal en Apple Silicon. La imagen funciona con emulación |
-| Querés empezar de cero | `docker compose -f docker-compose.student.yml down -v`, luego `up -d` |
+| `port already allocated` | `docker compose -f docker-compose.student.yml down`, then `up -d` again |
+| Page does not load | Wait 30 seconds for MariaDB to finish the initial import |
+| Platform error (amd64/arm64) | Normal on Apple Silicon. The image works with emulation |
+| Want to start from scratch | `docker compose -f docker-compose.student.yml down -v`, then `up -d` |

@@ -34,9 +34,10 @@ services:
 
   magento:
     image: lruizajax/magento-playground:latest
+    platform: linux/amd64
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "8081:80"
     depends_on:
       mariadb:
         condition: service_started
