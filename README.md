@@ -7,6 +7,15 @@ It includes **10 real products with photos** and **5 categories**, ready to use 
 
 ## Quick start (students)
 
+1. Clone the repository:
+
+```sh
+git clone https://github.com/lruizajax/magento-testing-playground.git
+cd magento-testing-playground
+```
+
+2. Start the environment:
+
 ```sh
 docker compose -f docker-compose.student.yml up -d
 ```
